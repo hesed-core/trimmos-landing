@@ -92,6 +92,12 @@ close.click();
 assert(!dialog.open);
 assert.equal(doc.activeElement, opener);
 assert.equal(doc.body.style.overflow, "");
+opener.click();
+assert(dialog.open);
+key(dialog.querySelector("[data-close]"), "Escape");
+assert(!dialog.open);
+assert.equal(doc.activeElement, opener);
+assert.equal(doc.body.style.overflow, "");
 click(".menu-toggle");
 assert.equal(
   doc.querySelector(".menu-toggle").getAttribute("aria-expanded"),
@@ -118,5 +124,5 @@ opener.click();
 assert(!dialog.open, "Swipe must not also open dialog");
 dom.window.close();
 console.log(
-  "PASS: DOM simulation — filters, thumbnails, arrows, dialog close/focus, Tab containment, menu Escape/link close, swipe/click suppression. Native dialog Escape, layout and browser rendering are not simulated.",
+  "PASS: DOM simulation — filters, thumbnails, arrows, dialog close/focus/Escape, Tab containment, menu Escape/link close, swipe/click suppression. Layout and browser rendering are not simulated.",
 );

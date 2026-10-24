@@ -244,6 +244,12 @@ const first = screens[0];
     dialog
       .querySelector("[data-close]")!
       .addEventListener("click", () => dialog.close());
+    dialog.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        dialog.close();
+      }
+    });
     dialog.addEventListener("close", () => {
       document.body.style.overflow = priorOverflow;
       opener?.focus();

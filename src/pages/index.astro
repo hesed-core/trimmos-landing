@@ -40,7 +40,7 @@ const features = [
 ---
 
 <Layout
-  title="TrimmOS — Software para barberías y salones | The Next Era"
+  title="TrimmOS V3 Chromatic Flow — Software para Barber & Beauty"
   description="Organiza citas, personal, clientes y servicios con TrimmOS. Software para Barber & Beauty desarrollado por Hesed Core. Comienza 30 días gratis."
 >
   <Header />
@@ -48,8 +48,7 @@ const features = [
     <section class="hero wrap" id="inicio" aria-labelledby="hero-title">
       <div class="hero-kicker">
         <p class="eyebrow">
-          <span class="status-dot" aria-hidden="true"></span> TrimmOS V2 / The
-          Next Era
+          <span class="status-dot" aria-hidden="true"></span> TrimmOS V3 / Chromatic Flow
         </p>
         <span class="mono hero-edition">BARBER & BEAUTY SOFTWARE</span>
       </div>
@@ -369,4 +368,31 @@ const features = [
     <span aria-hidden="true">↗</span>
     <span>Hablemos</span>
   </a>
+  <script>
+    const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!reduceMotion && "IntersectionObserver" in window) {
+      const targets = [
+        ...document.querySelectorAll<HTMLElement>(
+          "main section, .feature-list article, .mode, .plan, .identity-visual",
+        ),
+      ];
+      targets.forEach((target, index) => {
+        target.classList.add("reveal");
+        target.style.setProperty("--reveal-delay", `${(index % 4) * 70}ms`);
+      });
+      document.documentElement.classList.add("motion-ready");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -36px 0px" },
+      );
+      targets.forEach((target) => observer.observe(target));
+    }
+  </script>
 </Layout>
