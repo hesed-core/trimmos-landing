@@ -15,7 +15,11 @@ pnpm-debug.log*
 
 # environment variables
 .env
-.env.production
+.env.*
+!.env.example
+
+# Private, unredacted screenshots.
+public/images/showcase/
 
 # macOS-specific files
 .DS_Store
@@ -25,3 +29,9 @@ pnpm-debug.log*
 
 # vscode settings
 .vscode/
+
+# Local audit is not application source or a deliverable.
+auditoria-trimmos.json
+
+# Private source masks and hashes; provision only in an authorized environment.
+scripts/privacy-regions.json

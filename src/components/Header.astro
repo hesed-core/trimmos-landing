@@ -1,0 +1,83 @@
+---
+import { whatsapp } from "../data/site";
+const links = [
+  ["#producto", "Producto"],
+  ["#funcionalidades", "Funcionalidades"],
+  ["#barber-beauty", "Barber & Beauty"],
+  ["#planes", "Planes"],
+  ["#core", "Conoce a Core"],
+];
+---
+
+<header class="header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#inicio" aria-label="TrimmOS, inicio">
+      <img src="/brand/trimmos.png" width="46" height="46" alt="" />
+      <span>
+        Trimm<span class="brand-os">OS</span>
+      </span>
+    </a>
+    <nav class="desktop-nav" aria-label="Navegación principal">
+      {links.map(([href, label]) => (
+        <a href={href}>{label}</a>
+      ))}
+    </nav>
+    <a class="button small header-cta" href={whatsapp()}>
+      Prueba gratis <span aria-hidden="true">↗</span>
+    </a>
+    <button
+      class="menu-toggle"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+      aria-label="Abrir menú"
+    >
+      Menú <span aria-hidden="true">☰</span>
+    </button>
+  </div>
+  <nav
+    id="mobile-nav"
+    class="mobile-nav wrap"
+    aria-label="Navegación móvil"
+    hidden
+  >
+    {links.map(([href, label]) => (
+      <a href={href}>{label}</a>
+    ))}
+    <a href={whatsapp()}>Comenzar 30 días gratis ↗</a>
+  </nav>
+</header>
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>(".menu-toggle");
+  const menu = document.querySelector<HTMLElement>("#mobile-nav");
+  const setOpen = (open: boolean) => {
+    if (!toggle || !menu) return;
+    menu.hidden = !open;
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+  };
+  toggle?.addEventListener("click", () =>
+    setOpen(toggle.getAttribute("aria-expanded") !== "true"),
+  );
+  menu
+    ?.querySelectorAll("a")
+    .forEach((a) => a.addEventListener("click", () => setOpen(false)));
+  document.addEventListener("keydown", (e) => {
+    if (
+      e.key === "Escape" &&
+      toggle?.getAttribute("aria-expanded") === "true"
+    ) {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+  document.addEventListener("click", (e) => {
+    if (
+      e.target instanceof Node &&
+      !document.querySelector(".header")?.contains(e.target)
+    )
+      setOpen(false);
+  });
+  matchMedia("(min-width: 1101px)").addEventListener("change", (e) => {
+    if (e.matches) setOpen(false);
+  });
+</script>

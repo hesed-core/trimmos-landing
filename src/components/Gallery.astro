@@ -1,96 +1,320 @@
 ---
+import { screens, categories } from "../data/showcase";
+const first = screens[0];
 ---
-<section id="demo" class="py-20 bg-[#0a0a0c] border-t border-gray-900 overflow-hidden">
-    <div class="max-w-6xl mx-auto px-4">
-        
-        <div class="text-center mb-16 relative z-10">
-            <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-5 italic tracking-tighter">
-                Explora el Núcleo de TrimmOS
-            </h2>
-            <p class="text-base text-gray-400 max-w-2xl mx-auto leading-relaxed">
-                Diseño multiplataforma adaptado a la identidad de tu marca. Control total desde cualquier dispositivo.
-            </p>
-        </div>
-        
-        <!-- Contenedor del Swiper con ancho controlado para centrar todo -->
-        <div class="swiper mySwiper rounded-3xl pb-16 relative max-w-4xl mx-auto">
-            
-            <div class="swiper-wrapper">
-                <!-- Slide 1 -->
-                <div class="swiper-slide flex flex-col items-center">
-                    <div class="p-2 bg-orange-500/10 border border-orange-500/20 rounded-[24px] shadow-xl inline-block">
-                        <img src="/barber-preview.png" alt="Modo Barber Shop" class="rounded-2xl w-full h-auto block" />
-                    </div>
-                    <h4 class="text-orange-500 font-bold text-center mt-6 text-lg tracking-wide uppercase">Modo Barber Shop</h4>
-                </div>
-                
-                <!-- Slide 2 -->
-                <div class="swiper-slide flex flex-col items-center">
-                    <div class="p-2 bg-blue-500/10 border border-blue-500/20 rounded-[24px] shadow-xl inline-block">
-                        <img src="/beauty-preview.png" alt="Modo Beauty & Spa" class="rounded-2xl w-full h-auto block" />
-                    </div>
-                    <h4 class="text-blue-400 font-bold text-center mt-6 text-lg tracking-wide uppercase">Modo Beauty & Spa</h4>
-                </div>
-            </div>
-            
-            <!-- Controles -->
-            <div class="swiper-pagination mt-10"></div>
-            <div class="swiper-button-next !text-purple-500 after:!text-2xl"></div>
-            <div class="swiper-button-prev !text-purple-500 after:!text-2xl"></div>
-        </div>
+
+<section class="theater-section" id="producto" aria-labelledby="theater-title">
+  <div class="wrap">
+    <div class="section-heading theater-heading">
+      <p class="eyebrow">01 / Product Theater</p>
+      <h2 id="theater-title">
+        Descubre TrimmOS
+        <br />
+        <em>por dentro.</em>
+      </h2>
+      <p>
+        Tu operación, en primera fila. Explora las pantallas reales de la
+        plataforma a tu propio ritmo.
+      </p>
     </div>
+    {first ? (
+      <div class="theater" data-theater>
+        <div class="categories" aria-label="Filtrar pantallas por categoría">
+          {categories.map((category, i) => (
+            <button
+              type="button"
+              data-category={category}
+              aria-pressed={i === 0}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+        <div class="theater-body">
+          <div class="theater-stage">
+            <div class="window-bar">
+              <span class="window-dots" aria-hidden="true">
+                ● ● ●
+              </span>
+              <span>TRIMMOS / PRODUCT TOUR</span>
+              <span data-position>
+                01 / {String(screens.length).padStart(2, "0")}
+              </span>
+            </div>
+            <button
+              class="screen-open"
+              aria-label="Ampliar captura del producto"
+              aria-haspopup="dialog"
+            >
+              <img
+                data-screen
+                src={first.image}
+                alt={first.alt}
+                width={first.width}
+                height={first.height}
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="zoom-hint">Ampliar pantalla ↗</span>
+            </button>
+          </div>
+          <div class="theater-copy" aria-live="polite" aria-atomic="true">
+            <span class="eyebrow" data-screen-category>
+              {first.category}
+            </span>
+            <h3 data-screen-title>{first.title}</h3>
+            <p data-screen-description>{first.description}</p>
+            <p class="privacy-note">
+              Capturas reales · Datos identificativos ocultos.
+            </p>
+            <div class="theater-controls">
+              <button type="button" data-prev aria-label="Pantalla anterior">
+                ←
+              </button>
+              <button type="button" data-next aria-label="Pantalla siguiente">
+                →
+              </button>
+              <span class="mono">Explora a tu ritmo</span>
+            </div>
+          </div>
+        </div>
+        <div class="thumbnails" aria-label="Seleccionar pantalla">
+          {screens.map((screen, i) => (
+            <button
+              type="button"
+              data-thumb={screen.id}
+              aria-label={screen.title}
+              aria-pressed={i === 0}
+            >
+              <img
+                src={screen.thumbnail}
+                alt=""
+                width="240"
+                height={Math.round((240 * screen.height) / screen.width)}
+                loading="lazy"
+              />
+              <span>
+                {String(i + 1).padStart(2, "0")} / {screen.category}
+              </span>
+            </button>
+          ))}
+        </div>
+        <noscript>
+          <p>Selecciona un enlace para ampliar cada captura:</p>
+          <ul>
+            {screens.map((s) => (
+              <li>
+                <a href={s.image}>{s.title}</a>
+              </li>
+            ))}
+          </ul>
+        </noscript>
+        <dialog class="lightbox" aria-labelledby="lightbox-title">
+          <div class="lightbox-top">
+            <h3 id="lightbox-title">{first.title}</h3>
+            <button type="button" data-close aria-label="Cerrar ampliación">
+              Cerrar ×
+            </button>
+          </div>
+          <img
+            data-lightbox-image
+            alt={first.alt}
+            width={first.width}
+            height={first.height}
+          />
+          <div class="lightbox-bottom">
+            <button
+              type="button"
+              data-prev
+              aria-label="Pantalla anterior en ampliación"
+            >
+              ← Anterior
+            </button>
+            <p data-lightbox-count aria-live="polite"></p>
+            <button
+              type="button"
+              data-next
+              aria-label="Pantalla siguiente en ampliación"
+            >
+              Siguiente →
+            </button>
+          </div>
+        </dialog>
+      </div>
+    ) : (
+      <p>Las capturas del producto están en revisión de privacidad.</p>
+    )}
+  </div>
 </section>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
-<style>
-    :root {
-        --swiper-theme-color: #9333ea;
-        --swiper-pagination-bullet-inactive-color: #4b5563;
-        --swiper-navigation-size: 24px;
+<script>
+  import { screens } from "../data/showcase";
+  const root = document.querySelector<HTMLElement>("[data-theater]");
+  if (root && screens.length) {
+    let filtered = screens;
+    let index = 0;
+    let opener: HTMLElement | null = null;
+    let priorOverflow = "";
+    const dialog = root.querySelector<HTMLDialogElement>("dialog")!;
+    const mainImage = root.querySelector<HTMLImageElement>("[data-screen]")!;
+    const zoomImage = root.querySelector<HTMLImageElement>(
+      "[data-lightbox-image]",
+    )!;
+    const thumbs = [
+      ...root.querySelectorAll<HTMLButtonElement>("[data-thumb]"),
+    ];
+    function render() {
+      const screen = filtered[index];
+      mainImage.src = screen.image;
+      mainImage.alt = screen.alt;
+      mainImage.width = screen.width;
+      mainImage.height = screen.height;
+      root!.querySelector("[data-screen-title]")!.textContent = screen.title;
+      root!.querySelector("[data-screen-category]")!.textContent =
+        screen.category;
+      root!.querySelector("[data-screen-description]")!.textContent =
+        screen.description;
+      root!.querySelector("[data-position]")!.textContent =
+        `${String(index + 1).padStart(2, "0")} / ${String(filtered.length).padStart(2, "0")}`;
+      thumbs.forEach((button) => {
+        button.hidden = !filtered.some((s) => s.id === button.dataset.thumb);
+        button.setAttribute(
+          "aria-pressed",
+          String(button.dataset.thumb === screen.id),
+        );
+      });
+      root!
+        .querySelectorAll<HTMLButtonElement>("[data-prev], [data-next]")
+        .forEach((button) => (button.disabled = filtered.length < 2));
+      if (dialog.open) {
+        zoomImage.src = screen.image;
+        zoomImage.alt = screen.alt;
+        zoomImage.width = screen.width;
+        zoomImage.height = screen.height;
+        root!.querySelector("#lightbox-title")!.textContent = screen.title;
+        root!.querySelector("[data-lightbox-count]")!.textContent =
+          `${index + 1} de ${filtered.length}`;
+      }
     }
-    
-    .mySwiper {
-        width: 100%;
-        margin-left: auto;
-        margin-right: auto;
+    function move(step: number) {
+      index = (index + step + filtered.length) % filtered.length;
+      render();
     }
-
-    .swiper-slide {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-    }
-
-    /* Ajuste para que las flechas no queden tan pegadas o volando fuera del margen */
-    .swiper-button-next { right: -10px; }
-    .swiper-button-prev { left: -10px; }
-
-    @media (max-width: 768px) {
-        .swiper-button-next, .swiper-button-prev { display: none; }
-    }
-</style>
-
-<script is:inline src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script is:inline>
-    new Swiper(".mySwiper", {
-        slidesPerView: 1,
-        centeredSlides: true,
-        spaceBetween: 0, // Quitamos el espacio entre slides para evitar desplazamientos
-        loop: true,
-        autoplay: {
-            delay: 4000,
-            disableOnInteraction: false,
-        },
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-            dynamicBullets: true,
-        },
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
+    root
+      .querySelectorAll("[data-prev]")
+      .forEach((b) => b.addEventListener("click", () => move(-1)));
+    root
+      .querySelectorAll("[data-next]")
+      .forEach((b) => b.addEventListener("click", () => move(1)));
+    root
+      .querySelectorAll<HTMLButtonElement>("[data-category]")
+      .forEach((button) =>
+        button.addEventListener("click", () => {
+          filtered =
+            button.dataset.category === "Vista general"
+              ? screens
+              : screens.filter((s) => s.category === button.dataset.category);
+          index = 0;
+          root
+            .querySelectorAll("[data-category]")
+            .forEach((b) =>
+              b.setAttribute("aria-pressed", String(b === button)),
+            );
+          render();
+        }),
+      );
+    thumbs.forEach((button) =>
+      button.addEventListener("click", () => {
+        index = filtered.findIndex((s) => s.id === button.dataset.thumb);
+        render();
+      }),
+    );
+    let suppressClickUntil = 0;
+    root.querySelector(".screen-open")!.addEventListener("click", () => {
+      if (Date.now() < suppressClickUntil) return;
+      opener =
+        document.activeElement instanceof HTMLElement
+          ? document.activeElement
+          : null;
+      priorOverflow = document.body.style.overflow;
+      dialog.showModal();
+      document.body.style.overflow = "hidden";
+      render();
+      dialog.querySelector<HTMLButtonElement>("[data-close]")!.focus();
     });
+    dialog
+      .querySelector("[data-close]")!
+      .addEventListener("click", () => dialog.close());
+    dialog.addEventListener("close", () => {
+      document.body.style.overflow = priorOverflow;
+      opener?.focus();
+    });
+    dialog.addEventListener("click", (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+    root.addEventListener("keydown", (e) => {
+      const target = e.target as HTMLElement;
+      if (target.matches("[data-category]")) {
+        const buttons = [
+          ...root.querySelectorAll<HTMLButtonElement>("[data-category]"),
+        ];
+        const current = buttons.indexOf(target as HTMLButtonElement);
+        if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+          e.preventDefault();
+          buttons[
+            (current + (e.key === "ArrowRight" ? 1 : -1) + buttons.length) %
+              buttons.length
+          ].focus();
+        }
+        return;
+      }
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        move(1);
+      }
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        move(-1);
+      }
+      if (dialog.open && e.key === "Tab") {
+        const focusable = [
+          ...dialog.querySelectorAll<HTMLButtonElement>(
+            "button:not(:disabled)",
+          ),
+        ];
+        const first = focusable[0],
+          last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    });
+    let startX = 0,
+      startY = 0;
+    const stage = root.querySelector<HTMLElement>(".theater-stage")!;
+    stage.addEventListener(
+      "touchstart",
+      (e) => {
+        startX = e.changedTouches[0].clientX;
+        startY = e.changedTouches[0].clientY;
+      },
+      { passive: true },
+    );
+    stage.addEventListener(
+      "touchend",
+      (e) => {
+        const dx = e.changedTouches[0].clientX - startX;
+        const dy = e.changedTouches[0].clientY - startY;
+        if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+          suppressClickUntil = Date.now() + 400;
+          move(dx < 0 ? 1 : -1);
+        }
+      },
+      { passive: true },
+    );
+    render();
+  }
 </script>

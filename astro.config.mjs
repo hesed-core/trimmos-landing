@@ -1,11 +1,13 @@
-// @ts-check
-import { defineConfig } from 'astro/config';
-
-import tailwindcss from '@tailwindcss/vite';
-
-// https://astro.build/config
+import { defineConfig } from "astro/config";
 export default defineConfig({
+  site: "https://www.trimmos.com",
+  output: "static",
+  // Original screenshots stay private; only processed assets are served.
+  publicDir: "./public-safe",
+  compressHTML: true,
   vite: {
-    plugins: [tailwindcss()]
-  }
+    define: {
+      "import.meta.env.VERCEL": JSON.stringify(process.env.VERCEL ?? ""),
+    },
+  },
 });
