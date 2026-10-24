@@ -1,161 +1,84 @@
 ---
+import { whatsapp } from "../data/site";
 const plans = [
-    {
-        name: "Lanzamiento",
-        price: "Gratis",
-        duration: "30 días",
-        description: "Prueba el núcleo operativo de TrimmOS y organiza tu agenda este mes.",
-        features: [
-            "Agenda digital 24/7", 
-            "Configuración de Servicios", 
-            "Soporte de Hesed Core", 
-            "Panel de Control básico"
-        ],
-        buttonText: "Obtener 30 Días Gratis",
-        highlight: false
-    },
-    {
-        name: "Essential",
-        price: "$399",
-        duration: "mes",
-    description: "Para negocios que operan como barbería o salón de belleza y quieren administrarlo todo desde un solo lugar.",
+  {
+    name: "Lanzamiento",
+    price: "Gratis",
+    unit: "durante 30 días",
+    description: "Conoce TrimmOS en el ritmo real de tu negocio.",
     features: [
-        "Elige Barber o Beauty",
-        "Agenda completa e ilimitada",
-        "Gestión de clientes",
-        "Gestión de personal y horarios",
-        "Panel administrativo",
-        "1 sucursal incluida"
+      "30 días para explorar la plataforma",
+      "Contacto directo con Hesed Core",
     ],
-        buttonText: "Activar Plan",
-        highlight: false
-    },
-    {
-        name: "Pro",
-        price: "$599",
-        duration: "mes",
-        description: "Para negocios que ofrecen servicios de barbería y belleza desde una misma operación.",
-        features: [
-            "Barber y Beauty incluidos",
-            "Agenda completa e ilimitada",
-            "Gestión de clientes",
-            "Gestión de personal y horarios",
-            "Panel administrativo Pro",
-            "Reportes avanzados",
-            "1 sucursal incluida"
-        ],
-        buttonText: "Activar Pro",
-        highlight: true
-    }
+    cta: "Obtener 30 días gratis",
+    action: "trial" as const,
+  },
+  {
+    name: "Essential",
+    price: "$399",
+    unit: "MXN / mes",
+    description: "Tu especialidad, con una operación organizada.",
+    features: ["Una sucursal", "Modalidad Barber o Beauty"],
+    cta: "Activar Essential",
+    action: "essential" as const,
+  },
+  {
+    name: "Pro",
+    price: "$599",
+    unit: "MXN / mes",
+    description: "Dos especialidades. Una misma visión de negocio.",
+    features: ["Barber + Beauty en un mismo plan", "Una sucursal"],
+    cta: "Activar Pro",
+    action: "pro" as const,
+  },
 ];
 ---
 
-<section id="pricing" class="py-24 bg-[#0a0a0c]">
-    <div class="max-w-6xl mx-auto px-4">
-        <div
-    class="
-        mb-16
-        text-center
-    "
-    >
-    <h2
-        class="
-        mb-4
-        text-4xl font-bold italic
-        text-white
-        "
-    >
-        Un plan para cada etapa de tu crecimiento.
+<section class="section wrap" id="planes" aria-labelledby="plans-title">
+  <div class="section-heading">
+    <p class="eyebrow">06 / A tu ritmo</p>
+    <h2 id="plans-title">
+      Un siguiente paso.
+      <br />
+      Un plan para ti.
     </h2>
-
-    <p
-        class="
-        mx-auto max-w-3xl
-        text-gray-400
-        "
-    >
-        Desde una barbería o salón independiente hasta una operación
-        que combina Barber y Beauty. TrimmOS crece contigo.
+    <p>
+      Empieza con 30 días gratis. Elige la modalidad que acompaña a tu negocio.
     </p>
-    </div>
-
-        <div class="grid md:grid-cols-3 gap-8 items-stretch">
-            {plans.map((plan) => (
-                <div class={`relative flex flex-col h-full p-8 rounded-3xl bg-[#16161a] border transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_35px_rgba(147,51,234,0.18)] ${plan.highlight ? 'border-purple-600 shadow-[0_0_30px_rgba(147,51,234,0.2)] scale-105 z-10' : 'border-gray-800 hover:border-purple-500/50'}`}>
-                    {plan.highlight && (
-                        <span class="absolute -top-4 left-1/2 -translate-x-1/2 bg-purple-600 text-white text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider">
-                            Más recomendado
-                        </span>
-                    )}
-                    
-                    <h3 class="text-2xl font-bold mb-2 text-white">{plan.name}</h3>
-                    <p class="text-gray-400 text-sm mb-6 h-12 leading-tight">{plan.description}</p>
-                    
-                    <div class="mb-6">
-                        <div class="text-5xl font-black text-white">
-                            {plan.price}
-                        </div>
-
-                        <div class="text-sm uppercase tracking-wider text-gray-400 mt-2">
-                            MXN / {plan.duration}
-                        </div>
-                    </div>
-
-                    <ul class="space-y-4 mb-8">
-                        {plan.features.map((feature) => (
-                            <li class="flex items-start text-sm text-gray-300 leading-tight">
-                                <svg class="w-5 h-5 text-purple-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                {feature}
-                            </li>
-                        ))}
-                    </ul>
-
-                    <a 
-                        href={`https://wa.me/528126076947?text=Hola%20Leonardo,%20me%20interesa%20el%20plan%20${plan.name}%20de%20TrimmOS`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class={`block mt-auto text-center w-full py-4 rounded-2xl font-bold transition-all ${plan.highlight ? 'bg-purple-600 hover:bg-purple-700 text-white shadow-lg' : 'bg-[#252529] hover:bg-[#323238] text-white'}`}
-                    >
-                        {plan.buttonText}
-                    </a>
-                </div>
-            ))}
+  </div>
+  <div class="plans">
+    {plans.map((plan, i) => (
+      <article class:list={["plan", { "plan-pro": i === 2 }]}>
+        <div class="plan-top">
+          <span class="mono">0{i + 1}</span>
+          {i === 2 && <span class="tag">Barber + Beauty</span>}
         </div>
-        
-        <!-- Información adicional sobre sucursales -->
-        <div
-        class="
-            mx-auto mt-10 max-w-3xl
-            rounded-2xl border border-purple-500/20
-            bg-purple-500/5
-            px-6 py-4
-            text-center
-        "
+        <h3>{plan.name}</h3>
+        <p>{plan.description}</p>
+        <div class="price">{plan.price}</div>
+        <p class="price-unit">{plan.unit}</p>
+        <ul>
+          {plan.features.map((feature) => (
+            <li>{feature}</li>
+          ))}
+        </ul>
+        <a
+          class:list={["button", { "button-outline": i !== 2 }]}
+          href={whatsapp(plan.action)}
         >
-        <p
-            class="
-            text-sm leading-relaxed
-            text-gray-400
-            "
-        >
-            Cada plan de pago incluye
-            <span class="font-semibold text-white">
-            1 sucursal.
-            </span>
-            Puedes agregar sucursales adicionales desde
-            <span class="font-semibold text-purple-400">
-            $200 MXN al mes
-            </span>
-            por cada una.
-        </p>
-        </div>
-
-        <div class="mt-16 text-center">
-            <p class="text-gray-600 text-xs uppercase tracking-[0.3em]">
-                Ingeniería con Propósito por <span class="text-gray-400">Hesed Core</span>
-            </p>
-        </div>
-    </div>
+          {plan.cta}
+          <span aria-hidden="true">↗</span>
+        </a>
+      </article>
+    ))}
+  </div>
+  <p class="plan-note">
+    ¿Tu negocio crece?{" "}
+    <strong>Sucursal adicional desde $100 MXN por local.</strong> Sujeto a
+    condiciones comerciales vigentes.
+  </p>
+  <p class="fine-print">
+    La prueba y la activación de planes se coordinan por WhatsApp con nuestro
+    equipo.
+  </p>
 </section>

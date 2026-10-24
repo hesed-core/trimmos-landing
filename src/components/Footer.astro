@@ -1,0 +1,43 @@
+---
+import { site, whatsapp } from "../data/site";
+---
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-main">
+      <div>
+        <a class="brand" href="#inicio">
+          <img src="/brand/trimmos.png" width="46" height="46" alt="" />
+          <span>
+            Trimm<span class="brand-os">OS</span>
+          </span>
+        </a>
+        <p>
+          El control detrás de tu talento.
+          <br />
+          Software para Barber & Beauty.
+        </p>
+      </div>
+      <nav aria-label="Navegación del pie de página">
+        <h2>Explorar</h2>
+        <a href="#producto">Producto</a>
+        <a href="#funcionalidades">Funcionalidades</a>
+        <a href="#planes">Planes</a>
+        <a href="#core">Conoce a Core</a>
+      </nav>
+      <nav aria-label="Contacto comercial">
+        <h2>Hablemos</h2>
+        <a href={whatsapp()}>Comenzar 30 días gratis ↗</a>
+        <a href={whatsapp("contact")}>WhatsApp · +52 81 3573 1273 ↗</a>
+        <a href={site.corporate}>Conocer Hesed Core ↗</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>© {new Date().getFullYear()} TrimmOS</span>
+      <a href={site.corporate}>
+        Un producto desarrollado por <strong>Hesed Core</strong> ↗
+      </a>
+      <span class="mono">The Next Era</span>
+    </div>
+  </div>
+</footer>

@@ -1,22 +1,45 @@
 ---
 import "../styles/global.css";
-// 1. Importamos el componente de analíticas
-import Analytics from '@vercel/analytics/astro';
+import "../styles/chromatic-flow.css";
+import Analytics from "@vercel/analytics/astro";
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+const canonical = new URL("/", Astro.site);
+const socialImage = new URL("/brand/trimmos.png", Astro.site);
 ---
 
 <!doctype html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/png" href="/trimmos-logo.png" />
-        <link rel="shortcut icon" href="/trimmos-logo.png" />
-        <link rel="apple-touch-icon" href="/trimmos-logo.png" />
-        <title>TrimmOS - Gestión Inteligente para Barberías</title>
-    </head>
-    <body class="bg-[#0a0a0c] text-white selection:bg-purple-500/30">
-        <slot />
-        <!-- 2. Colocamos el componente antes de cerrar el body -->
-        <Analytics />
-    </body>
+<html lang="es-MX">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#fff7ed" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/brand/trimmos.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:site_name" content="TrimmOS" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:alt" content="Logo oficial de TrimmOS" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <meta name="twitter:image:alt" content="Logo oficial de TrimmOS" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">
+      Saltar al contenido
+    </a>
+    <slot />
+    {import.meta.env.VERCEL === "1" && <Analytics />}
+  </body>
 </html>
